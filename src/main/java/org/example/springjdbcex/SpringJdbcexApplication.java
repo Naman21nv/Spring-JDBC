@@ -15,7 +15,7 @@ public class SpringJdbcexApplication {
        Student st=context.getBean(Student.class);
        st.setMarks(98);
        st.setName("Karna");
-         st.setRollno(1);
+       st.setRollno(1);
 
         StudentService studentService=context.getBean(StudentService.class);
         studentService.addStudent(st);
