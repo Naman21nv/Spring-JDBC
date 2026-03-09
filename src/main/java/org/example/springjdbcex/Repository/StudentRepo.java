@@ -150,10 +150,10 @@ public class StudentRepo {
      *   an int update count instead of a ResultSet).
      */
     public void save(Student student) {
-        String sql = "insert into student(rollno , name , marks) values(?,?,?)";
+        // Use PostgreSQL upsert to insert or update on primary-key conflict.
+        String sql = "insert into student(rollno, name, marks) values(?,?,?) " +
+                     "on conflict (rollno) do update set name = excluded.name, marks = excluded.marks";
         int rows = jdbc.update(sql, student.getRollno(), student.getName(), student.getMarks());
-        // A simple acknowledgement to stderr/stdout for development. Replace
-        // with a logger (e.g., SLF4J) in production.
         System.out.println("the affected rows" + rows);
     }
 }
